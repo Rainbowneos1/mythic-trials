@@ -6,7 +6,7 @@
 <title>神话试炼 · Mythic Trials — Low-bit 桌游</title>
 <style>
   * { box-sizing: border-box; }
-  body { margin:0; background:#0f0f18; color:#e8e6f0; font-family:"Segoe UI","Microsoft YaHei",sans-serif; }
+  body { margin:0; background:#0f0f18; color:#e8e6f0; font-family:"Segoe UI","Microsoft YaHei",sans-serif; touch-action:manipulation; }
   h1,h2,h3 { font-weight:600; }
   .gold { color:#e8c469; }
   button { font-family:inherit; cursor:pointer; border:none; border-radius:8px; padding:8px 14px;
@@ -105,6 +105,58 @@
   .rules-box { text-align:left; font-size:13.5px; line-height:1.75; }
   .rules-box h3 { color:#e8c469; margin:14px 0 4px; font-size:15px; }
   .vs { font-size:22px; color:#8a88a5; }
+
+  /* ================= 移动端适配 (≤820px, PC 端不受影响) ================= */
+  @media (max-width: 820px) {
+    #screen-title { padding: 18px 10px 40px; }
+    #screen-title h1 { font-size: 24px; letter-spacing: 3px; }
+    .subtitle { font-size: 12px; margin-bottom: 14px; }
+    #hero-show img { width: 40px !important; height: 40px !important; }
+    .modes { flex-direction: column; align-items: stretch; gap: 10px; margin: 12px 0 6px; }
+    .mode-card { width: auto; }
+    .heroes-pick { gap: 8px; }
+    .hero-card { width: calc(50% - 4px); padding: 8px 6px; }
+    .hero-card img { width: 64px !important; height: 64px !important; }
+    .hero-card .stat { font-size: 11px; }
+    #start-btn { width: 100%; margin-top: 14px; }
+    #rules-btn { width: 100%; margin-top: 8px; }
+
+    #screen-game { padding: 8px 8px calc(20px + env(safe-area-inset-bottom)); }
+    #topbar { gap: 5px; padding: 8px 10px; }
+    #topbar .tt { width: 100%; font-size: 14px; letter-spacing: 1px; }
+    #topbar .pill { font-size: 11px; padding: 3px 9px; }
+    #topbar button { padding: 6px 10px; font-size: 12px; }
+
+    #main { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+    #side { order: -1; }                       /* 英雄状态置顶, 热座方便查看 */
+    #map { gap: 5px; }
+    .tile { border-radius: 9px; padding: 2px; }
+    .tile .ticon { font-size: 17px; }
+    .tile .tname { font-size: 8.5px; line-height: 1.25; margin-top: 1px; }
+    .tile > img.pix { width: 34px !important; height: 34px !important; }
+    .tile .occ img { width: 20px !important; height: 20px !important; }
+    .tile .stack { font-size: 9px; }
+
+    #actions { gap: 6px; }
+    #actions button { flex: 1 1 44%; padding: 11px 6px; font-size: 13px; }
+    #log { max-height: 110px; font-size: 12px; }
+    .panel { padding: 10px; }
+    .hero-box { padding: 8px; gap: 8px; }
+    .hero-box img { width: 48px !important; height: 48px !important; }
+    .res img { width: 13px !important; height: 13px !important; }
+
+    .modal { padding: 14px 12px; max-width: 94vw; border-radius: 12px; }
+    .fight { flex-wrap: wrap; gap: 4px; margin: 6px 0; }
+    .fighter { width: calc(50% - 4px); }
+    .fighter img.pix { width: 76px !important; height: 76px !important; }
+    #dice { width: 58px; height: 58px; line-height: 58px; font-size: 28px; }
+    .cbt-btns button { flex: 1 1 44%; padding: 11px 6px; font-size: 13px; }
+    .shop-grid { grid-template-columns: repeat(auto-fill, minmax(122px, 1fr)); gap: 8px; }
+    .shop-item img { width: 48px !important; height: 48px !important; }
+    .rules-box { font-size: 12.5px; }
+    .score-table { font-size: 12px; }
+    #restore-modal { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); padding: 12px 16px; }
+  }
 </style>
 </head>
 <body>
