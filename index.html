@@ -103,6 +103,11 @@
   .score-table td { padding:5px 8px; border-bottom:1px solid #2c2c44; }
   .score-table td:last-child { text-align:right; color:#ffd97a; }
   .rules-box { text-align:left; font-size:13.5px; line-height:1.75; }
+  .rules-box h3 { color:#e8c469; margin:16px 0 6px; font-size:15px; border-bottom:1px solid #34345a; padding-bottom:4px; }
+  .rules-box ul, .rules-box ol { margin:4px 0 14px; padding-left:20px; }
+  .rules-box li { margin-bottom:5px; line-height:1.7; }
+  .rules-box li::marker { color:#e8c469; }
+  .rules-box .rk { color:#8a88a5; font-size:12px; }
   .rules-box h3 { color:#e8c469; margin:14px 0 4px; font-size:15px; }
   .vs { font-size:22px; color:#8a88a5; }
 
@@ -250,37 +255,37 @@ function simg(id, size) {
 /* ---------------- 2. 静态数据 ---------------- */
 const MON = {
   satyre:    { name: "羊角精灵·萨提尔",   hp: 4, atk: 1, vp: 1, tier: 1, rw: { or: 1 },       desc: "狡黠的山林精怪",
-               skill: { name: "戏法",       desc: "2/6 概率闪避你的攻击" } },
+               skill: { name: "戏法",       desc: "1/6 概率闪避你的攻击" } },
   medanes:   { name: "花冠树精",          hp: 4, atk: 1, vp: 1, tier: 1, rw: { es: 1 },       desc: "会吐火球的小树精",
-               skill: { name: "火花",       desc: "反击 2/6 概率 +1 伤害" } },
+               skill: { name: "火花",       desc: "反击 3/6 概率 +1 伤害" } },
   crabe:     { name: "岩石巨蟹",          hp: 5, atk: 1, vp: 1, tier: 1, rw: { or: 1 },       desc: "水晶甲壳的巨螯",
                skill: { name: "水晶甲壳",   desc: "受到的伤害 -1 (至少为 1)" } },
   sanglier:  { name: "钢铁獠牙·战猪",     hp: 5, atk: 2, vp: 1, tier: 1, rw: { or: 1 },       desc: "戴盔冲锋的野猪战士",
                skill: { name: "冲锋",       desc: "首次反击伤害 +2" } },
   chouette:  { name: "智慧圣猫头鹰",      hp: 3, atk: 1, vp: 1, tier: 1, rw: { el: 1 },       desc: "雅典娜的圣鸟, 携雷晶",
-               skill: { name: "夜视",       desc: "反击 2/6 概率 +1 伤害" } },
+               skill: { name: "先啄",       desc: "先攻: 战斗开始时立即造成 1 点伤害" } },
   argos:     { name: "百眼巨人·阿耳戈斯", hp: 6, atk: 2, vp: 2, tier: 2, rw: { or: 2 },       desc: "全身布满警戒之目",
-               skill: { name: "全视看破",   desc: "2/6 概率使你的攻击伤害减半" } },
+               skill: { name: "全视看破",   desc: "1/6 概率使你的攻击伤害减半" } },
   cyclope:   { name: "独眼巨人",          hp: 7, atk: 2, vp: 2, tier: 2, rw: { or: 1, es: 1 }, desc: "额生血口的莽汉",
-               skill: { name: "蛮力",       desc: "反击 2/6 概率 +2 伤害" } },
+               skill: { name: "蛮力",       desc: "破甲: 反击无视神盾; 3/6 概率 +2 伤害" } },
   gorgone:   { name: "蛇发女妖·美杜莎",   hp: 6, atk: 3, vp: 2, tier: 2, rw: { es: 2 },       desc: "蛇发缠身的弯刀猎手",
                skill: { name: "石化凝视",   desc: "反击 2/6 概率使你下次攻击 -2 伤害" } },
   hydre:     { name: "多头蛇怪·许德拉",   hp: 8, atk: 2, vp: 2, tier: 2, rw: { or: 2 },       desc: "斩不断的多头海蛇",
                skill: { name: "再生",       desc: "每次受击未死, 2/6 概率回复 1 HP" } },
   minotaure: { name: "牛头人·弥诺陶洛斯", hp: 8, atk: 3, vp: 2, tier: 2, rw: { or: 3 },       desc: "迷宫深处的巨斧守卫",
-               skill: { name: "巨斧横扫",   desc: "反击 2/6 概率伤害翻倍" } },
+               skill: { name: "巨斧横扫",   desc: "反击 1/6 概率伤害翻倍" } },
   ours:      { name: "星空巨熊",          hp: 6, atk: 2, vp: 2, tier: 2, rw: { or: 1, el: 1 }, desc: "星座化身的咆哮",
-               skill: { name: "星云护体",   desc: "2/6 概率受到的伤害 -2" } },
+               skill: { name: "狂怒",       desc: "被动: 生命不高于一半时, 反击 +2 伤害" } },
   cerbere:   { name: "三头地狱犬",        hp: 11, atk: 4, vp: 3, tier: 3, rw: { es: 2 },       desc: "冥界的三首烈犬", sub: true,
                skill: { name: "三首齐袭",   desc: "反击 2/6 概率追加撕咬 +3 伤害" } },
   charon:    { name: "冥河船夫·卡戎",     hp: 10, atk: 3, vp: 3, tier: 3, rw: { el: 1, or: 1 }, desc: "掌控亡魂漩涡的摆渡人", sub: true,
                skill: { name: "亡魂漩涡",   desc: "反击 2/6 概率 +2 伤害并回复自身 1 HP" } },
   syline:    { name: "醉翁贤者·西勒诺斯", hp: 5, atk: 2, vp: 2, tier: 2, rw: { or: 2 },       desc: "酒气熏天的老贤者",
-               skill: { name: "醉态",       desc: "2/6 概率闪避你的攻击" } },
+               skill: { name: "醉掷",       desc: "反击 2/6 概率顺手偷走 1 枚黄金" } },
   sphinx:    { name: "翼狮女妖·斯芬克斯", hp: 9, atk: 3, vp: 3, tier: 3, rw: { el: 2 },       desc: "撕卷出题的谜之猎手",
                skill: { name: "谜语束缚",   desc: "你的首次攻击伤害减半" } },
   triton:    { name: "海神之子·特里同",   hp: 9, atk: 3, vp: 3, tier: 3, rw: { or: 3 },       desc: "执三叉戟的海之王子",
-               skill: { name: "海潮阻滞",   desc: "反击 2/6 概率 +1 伤害并使你下次攻击 -1" } },
+               skill: { name: "海潮阻滞",   desc: "反击 3/6 概率 +1 伤害并使你下次攻击 -1" } },
   typhon:    { name: "风暴巨人·堤丰",     hp: 16, atk: 5, vp: 5, tier: 3, rw: {},            desc: "万魔之父, 风暴本体", boss: true,
                skill: { name: "风暴雷霆",   desc: "反击 2/6 概率 +2 伤害; 合作模式反击波及队友 1 点" } },
 };
@@ -435,7 +440,7 @@ function startGame() {
     tiles: [], logs: [], combat: null,
     chapters: CHAPTERS.map(() => false),
     kills: 0, milestones: { t2: { round: null }, art: { round: null }, t3: { round: null } },
-    bossOpen: mode === "duel", bossDead: false, prevPos: null,
+    bossOpen: mode === "duel", bossDead: false, prevPos: null, exploreLock: false,
     bossLevel: 0, bossVP: 5, bossKills: 0, apBonus: 0, pendingApBonus: 0,
   };
   buildMap(coopBonus);
@@ -487,6 +492,7 @@ function turnBegin() {
   if (G.over) return;
   const p = cur();
   G.ap = 3 + (G.apBonus || 0);
+  G.exploreLock = false;                       // 新回合重置原地探索封锁
   p.freeMove = hasArt(p, "argo");
   if (p.down) {
     log(`${p.name} 倒地休养, 跳过本回合。`, "bad");
@@ -518,7 +524,7 @@ function endOfRound() {
   } else {
     G.round++;
     if (G.round >= 6) {
-      const fire = G.round >= 10 ? 3 : G.round >= 8 ? 2 : 1;
+      const fire = 1 + Math.floor((G.round - 6) / 2);   // 每 2 轮 +1, 不设上限
       for (const p of G.players) if (!p.down) { p.pv -= fire; }
       log(`堤丰的怒火席卷大地! 所有英雄生命 -${fire}。`, "bad");
       checkDeaths();
@@ -536,9 +542,10 @@ function endTurn() {
 function restAction() {
   const p = cur();
   if (G.ap <= 0 || G.combat || MODAL_OPEN) return;
+  G.ap--;                                       /* 休息也至少消耗 1AP (随后结束回合) */
   const heal = hasHero(p, "heros2") ? 3 : 2;
   p.pv = Math.min(p.pvMax, p.pv + heal);
-  log(`${p.name} 原地休整, 生命 +${heal}。`, "sys");
+  log(`${p.name} 原地休整 (消耗 1AP), 生命 +${heal}。`, "sys");
   endTurn();
 }
 
@@ -587,13 +594,14 @@ function tileClick(x, y) {
   }
   if (p.freeMove) { p.freeMove = false; log(`${p.name} 乘阿尔戈号疾行, 未消耗行动点。`, "sys"); }
   else G.ap--;
+  G.exploreLock = false;                       // 移动后解除原地探索封锁
   G.prevPos = { x: p.x, y: p.y };
   p.x = x; p.y = y;
   log(`${p.name} 移动到 ${TERRAIN[t.type].name}。`);
-  enterTile(t);
+  enterTile(t, true);
   renderAll();
 }
-function enterTile(t) {
+function enterTile(t, byMove) {
   const p = cur();
   const fresh = !t.top && t.stack.length > 0;
   if (fresh) t.top = t.stack[0];
@@ -603,7 +611,7 @@ function enterTile(t) {
     log(fresh
       ? `${p.name} 遭遇了 ${m.name}! (HP ${t.top.hp} · 攻 ${t.top.atk})`
       : `${p.name} 挑战 ${m.name}! (HP ${t.top.hp} · 攻 ${t.top.atk})`, "bad");
-    startCombat(t);
+    startCombat(t, byMove);
     return;
   }
   if (t.top.kind === "biche") { openBiche(t); return; }
@@ -622,8 +630,9 @@ function exploreAction() {
   if (G.over || G.combat || p.down || MODAL_OPEN) return;
   const t = tileAt(p.x, p.y);
   if (!t.top && !t.stack.length) return;
+  if (G.exploreLock) { log(`此地战斗刚刚脱离, 移动一步后才能再次原地探索。`, "bad"); return; }
   log(`${p.name} 探索了${TERRAIN[t.type].name}……`);
-  enterTile(t);
+  enterTile(t, false);
   renderAll();
 }
 
@@ -663,18 +672,33 @@ function endCombat() {
   }
   G.combat = null;
 }
-function startCombat(t) {
+function startCombat(t, byMove) {
   const p = cur();
   G.combat = {
-    tile: t, card: t.top, es: 0, abilityUsed: false, pending: null,
+    tile: t, card: t.top, es: 0, abilityUsed: false, pending: null, fromMove: !!byMove,
     kumeUsed: hasArt(p, "kume"), ringReady: false, monsterFirst: true,
   };
+  /* 圣猫头鹰「先啄」: 先攻, 战斗开始时立即造成 1 点伤害 */
+  if (t.top.id === "chouette") {
+    log(`${MON.chouette.name} 抢先俯冲啄击! ${p.name} 受到 1 点伤害。`, "bad");
+    p.pv -= 1;
+    checkDeaths();
+    if (!G.combat || G.over) return;
+  }
   renderCombat();
 }
 function combatHero() {
   const p = cur(), c = G.combat;
   let bonus = HERODEF[p.hero].atk + (hasArt(p, "marteau") ? 1 : 0);
   return { p, bonus, m: MON[c.card.id] };
+}
+/* 撤退按钮文案: 显示本次撤退的实际消耗 */
+function retreatLabel() {
+  const c = G.combat, m = MON[c.card.id], p = cur();
+  if (m.boss) return "不可撤退";
+  if (m.sub && !c.attackCount) return "暂不可撤退";
+  if (!c.fromMove) return "脱离战斗 (免费)";
+  return G.ap > 0 ? "撤退 (1AP)" : p.es >= 2 ? "撤退 (2精魄)" : "无法撤退";
 }
 function renderCombat() {
   if (!G.combat) return;
@@ -716,8 +740,8 @@ function renderCombat() {
            <button onclick="cReroll()" ${canReroll ? "" : "disabled"}>重掷 (1雷晶${p.hero === "heros3" && !c.abilityUsed ? "/幸运" : ""})</button>`
         : `<button class="primary" onclick="cRoll()">掷骰攻击</button>
            <button onclick="cES()" ${p.es > c.es && c.es < 3 ? "" : "disabled"}>+精魄增幅</button>
-           <button onclick="cAbility()" ${c.abilityUsed || (p.hero === "heros1" && p.el < 1) || p.hero === "heros4" ? "disabled" : ""}>技能: ${abText}</button>
-           <button class="danger" onclick="cRetreat()" ${m.boss || (m.sub && !c.attackCount) ? "disabled" : ""}>${m.boss ? "不可撤退" : m.sub && !c.attackCount ? "暂不可撤退" : "撤退"}</button>`}
+           <button onclick="cAbility()" ${c.abilityUsed || (p.hero === "heros1" && p.el < 1) || p.hero === "heros4" || (p.hero === "heros2" && c.monsterFirst && c.kumeUsed) ? "disabled" : ""}>技能: ${abText}</button>
+           <button class="danger" onclick="cRetreat()" ${m.boss || (m.sub && !c.attackCount) || (c.fromMove && G.ap <= 0 && p.es < 2) ? "disabled" : ""}>${retreatLabel()}</button>`}
     </div>
     <div style="text-align:center;font-size:12px;color:#7d7b95;margin-top:8px">${m.desc} · 击杀奖励: ${rwText(m.rw)}${m.boss ? " · <b style='color:#ff9a8a'>BOSS 战不可撤退</b>" : m.sub ? " · <b style='color:#ffd97a'>副BOSS: 发起首次攻击前不可撤退</b>" : ""}</div>`);
 }
@@ -756,6 +780,12 @@ function cAbility() {
     p.el--; c.warcry = 2; c.abilityUsed = true;
     log(`${p.name} 发动「战吼」, 下次攻击 +2 伤害!`, "sys");
   } else if (p.hero === "heros2") {
+    if (c.monsterFirst && c.kumeUsed) {
+      /* 暗影神盔已锁定首次反击, 此时开风之环会效果重叠 */
+      log(`暗影神盔已就位, 风之环与其效果重叠——首轮反击过后才能使用!`, "bad");
+      renderCombat();
+      return;
+    }
     c.ringReady = true; c.abilityUsed = true;
     log(`${p.name} 展开「风之环」, 将免疫下一次反击!`, "sys");
   }
@@ -769,13 +799,12 @@ function cConfirm() {
   c.pending = null;
   c.attackCount = (c.attackCount || 0) + 1;
   /* ---- 怪物受击技能 ---- */
-  if ((id === "satyre" && chance6(2)) || (id === "syline" && chance6(2))) {
+  if ((id === "satyre" && chance6(1)) || (id === "syline" && chance6(1))) {
     log(`${m.name} 的「${m.skill.name}」发动, 身形一闪躲过了攻击!`, "gold");
     dmg = 0;
   } else {
     if (id === "crabe" && dmg > 1) { dmg = Math.max(1, dmg - 1); log(`${m.name}的「水晶甲壳」弹开部分力道, 伤害 -1。`, "gold"); }
-    if (id === "argos" && chance6(2)) { dmg = Math.ceil(dmg / 2); log(`${m.name}「全视看破」了你的招式, 伤害减半!`, "gold"); }
-    if (id === "ours" && chance6(2)) { dmg = Math.max(0, dmg - 2); log(`${m.name}星云流转, 「星云护体」使伤害 -2。`, "gold"); }
+    if (id === "argos" && chance6(1)) { dmg = Math.ceil(dmg / 2); log(`${m.name}「全视看破」了你的招式, 伤害减半!`, "gold"); }
     if (id === "sphinx" && c.attackCount === 1) { dmg = Math.ceil(dmg / 2); log(`${m.name}的「谜语束缚」困住了你, 首次攻击伤害减半!`, "gold"); }
   }
   c.card.hp -= dmg;
@@ -792,35 +821,24 @@ function monsterCounter() {
   const { p, m } = combatHero();
   const c = G.combat;
   const id = c.card.id;
-  /* ---- 免疫类能力 (暗影神盔/风之环): 对 BOSS 失效, 对副 BOSS 减半(向下取整), 其余全额 ---- */
-  const imm = MON[id].boss ? 0 : MON[id].sub ? 2 : 1;
   const atkV = c.card.atk != null ? c.card.atk : m.atk;   // 支持复活强化后的动态攻击力
-  let negate = 0;
-  if (c.monsterFirst && c.kumeUsed) {
-    c.kumeUsed = false;
-    if (imm === 0) log(`暗影神盔在 ${m.name} 的伟力面前黯然失效!`, "bad");
-    else negate = imm === 2 ? Math.floor(atkV / 2) : atkV;
-  }
-  c.monsterFirst = false;
-  if (c.ringReady) {
-    c.ringReady = false;
-    if (imm === 0) log(`风之环被 ${m.name} 的伟力撕碎!`, "bad");
-    else negate = Math.max(negate, imm === 2 ? Math.floor(atkV / 2) : atkV);
-  }
-  let dmg = Math.max(0, atkV - (hasArt(p, "egide") ? 1 : 0));
   c.counterCount = (c.counterCount || 0) + 1;
-  /* ---- 怪物反击技能 ---- */
+  /* ---- 1. 反击基数 + 怪物反击技能 ---- */
+  let dmg = atkV;
   if (id === "sanglier" && c.counterCount === 1) { dmg += 2; log(`${m.name}「冲锋」势头凶猛, 首次反击 +2 伤害!`, "gold"); }
-  if (id === "medanes" && chance6(2)) { dmg += 1; log(`${m.name}喷出「火花」, 反击 +1。`, "gold"); }
-  if (id === "chouette" && chance6(2)) { dmg += 1; log(`${m.name}「夜视」精准啄击, 反击 +1。`, "gold"); }
-  if (id === "cyclope" && chance6(2)) { dmg += 2; log(`${m.name}「蛮力」横扫, 反击 +2!`, "gold"); }
-  if (id === "minotaure" && chance6(2)) { dmg *= 2; log(`${m.name}「巨斧横扫」, 反击伤害翻倍!`, "gold"); }
+  if (id === "ours" && c.card.hp <= Math.floor(c.card.max / 2)) { dmg += 2; log(`${m.name}身负重伤而「狂怒」, 反击 +2 伤害!`, "gold"); }
+  if (id === "medanes" && chance6(3)) { dmg += 1; log(`${m.name}喷出「火花」, 反击 +1。`, "gold"); }
+  if (id === "cyclope" && chance6(3)) { dmg += 2; log(`${m.name}「蛮力」横扫, 反击 +2!`, "gold"); }
+  if (id === "minotaure" && chance6(1)) { dmg *= 2; log(`${m.name}「巨斧横扫」, 反击伤害翻倍!`, "gold"); }
   if (id === "cerbere" && chance6(2)) { dmg += 3; log(`${m.name}「三首齐袭」, 追加撕咬 +3!`, "gold"); }
   if (id === "charon" && chance6(2)) {
     dmg += 2; c.card.hp = Math.min(c.card.max, c.card.hp + 1);
     log(`${m.name}的「亡魂漩涡」撕扯灵魂, 反击 +2 且自身 HP +1。`, "gold");
   }
-  if (id === "triton" && chance6(2)) {
+  if (id === "syline" && chance6(2) && p.or > 0) {
+    p.or -= 1; log(`${m.name}醉醺醺地顺手摸走了 1 枚黄金!`, "gold");
+  }
+  if (id === "triton" && chance6(3)) {
     dmg += 1; c.debuffNext = (c.debuffNext || 0) + 1;
     log(`${m.name}的「海潮阻滞」让你脚步沉重, 反击 +1, 下次攻击 -1。`, "gold");
   }
@@ -835,8 +853,26 @@ function monsterCounter() {
       if (other) { other.pv -= 1; log(`风暴波及 ${other.name}, 生命 -1。`, "bad"); }
     }
   }
-  const taken = Math.max(0, dmg - negate);
-  if (negate > 0) log(`免疫类能力抵消了 ${negate} 点伤害。`, "sys");
+  /* ---- 2. 免疫类能力 (暗影神盔/风之环): 对 BOSS 失效, 对副 BOSS 减半(向下取整), 其余全额 ---- */
+  const imm = MON[id].boss ? 0 : MON[id].sub ? 2 : 1;
+  let negCap = 0;
+  if (c.monsterFirst && c.kumeUsed) {
+    c.kumeUsed = false;
+    if (imm === 0) log(`暗影神盔在 ${m.name} 的伟力面前黯然失效!`, "bad");
+    else negCap = imm === 2 ? Math.floor(dmg / 2) : dmg;
+  }
+  c.monsterFirst = false;
+  if (c.ringReady) {
+    c.ringReady = false;
+    if (imm === 0) log(`风之环被 ${m.name} 的伟力撕碎!`, "bad");
+    else negCap = Math.max(negCap, imm === 2 ? Math.floor(dmg / 2) : dmg);
+  }
+  const afterImm = Math.max(0, dmg - negCap);
+  if (negCap > 0) log(`免疫类能力抵消了 ${negCap} 点伤害。`, "sys");
+  /* ---- 3. 神盾·埃癸斯: 独立减伤, 永远最后生效且不受免疫影响 (独眼巨人破甲可无视) ---- */
+  const pierce = id === "cyclope";
+  if (pierce && hasArt(p, "egide")) log(`${m.name}的「蛮力」砸碎了神盾, 减伤无效!`, "gold");
+  const taken = Math.max(0, afterImm - (hasArt(p, "egide") && !pierce ? 1 : 0));
   p.pv -= taken;
   log(`${m.name} 反击, ${p.name} 受到 ${taken} 点伤害。`, taken > 0 ? "bad" : "");
   checkDeaths();
@@ -893,8 +929,18 @@ function cRetreat() {
   const m = MON[c.card.id];
   if (m.boss) { log("堤丰的风暴封锁了所有退路, BOSS 战不可撤退!", "bad"); renderCombat(); return; }
   if (m.sub && !c.attackCount) { log(`${m.name} 死死拦住去路——对副BOSS发起首次攻击后才能撤退!`, "bad"); renderCombat(); return; }
-  if (G.prevPos) { p.x = G.prevPos.x; p.y = G.prevPos.y; }
-  log(`${p.name} 且战且退, 撤回了${TERRAIN[tileAt(p.x, p.y).type].name}。(怪物伤势保留)`, "bad");
+  if (c.fromMove) {
+    /* 移动进战的战斗: 撤退需 1AP, 无 AP 可改付 2 精魄, 退回进入前的格子 */
+    if (G.ap > 0) { G.ap--; }
+    else if (p.es >= 2) { p.es -= 2; log(`${p.name} 燃烧 2 火焰精魄强行脱离战场。`, "sys"); }
+    else { log("行动点与精魄都不足以撤退! (需要 1AP 或 2 精魄)", "bad"); renderCombat(); return; }
+    if (G.prevPos) { p.x = G.prevPos.x; p.y = G.prevPos.y; }
+    log(`${p.name} 且战且退, 撤回了${TERRAIN[tileAt(p.x, p.y).type].name}。(怪物伤势保留)`, "bad");
+  } else {
+    /* 原地探索的战斗: 免费脱离, 但本回合移动前禁止原地再战 */
+    G.exploreLock = true;
+    log(`${p.name} 从${TERRAIN[tileAt(p.x, p.y).type].name}抽身脱离战斗——本回合移动前无法在此再战。(怪物伤势保留)`, "bad");
+  }
   endCombat();
   closeModal();
   renderAll();
@@ -1060,9 +1106,12 @@ function finishStory(win) {
       <tr><td>· 剩余生命</td><td>${pv}</td></tr>
       <tr><td>· 黄金折算 (${p.or} 枚)</td><td>${gold}</td></tr>`);
   }
-  const speed = Math.max(0, 12 - G.round);
-  total += speed;
-  rows.push(`<tr><td>· 速度奖励 (第 ${G.round} 轮)</td><td>${speed}</td></tr>`);
+  /* 速通奖励仅在胜利时结算; 最低 0 (超过 12 轮不再倒扣) */
+  if (win) {
+    const speed = Math.max(0, 12 - G.round);
+    total += speed;
+    rows.push(`<tr><td>· 速度奖励 (第 ${G.round} 轮)</td><td>${speed}</td></tr>`);
+  }
   showModal(`
     <h2 style="text-align:center">${win ? "🏆 试炼成功!" : "💀 试炼失败……"}</h2>
     <p style="text-align:center;color:#b9b7cc">${win ? "堤丰的风暴平息了, 英雄的名字传遍希腊。" : "神话大地吞没了英雄的脚步。"}</p>
@@ -1146,7 +1195,7 @@ function renderActions() {
     if (G.combat) {
       btns.push(`<button class="primary" disabled>战斗中……</button>`);
     } else {
-      if (t.top || t.stack.length) {
+      if ((t.top || t.stack.length) && !G.exploreLock) {
         const label = t.top && t.top.kind === "monster" ? `挑战 ${MON[t.top.id].name} (免费)`
           : t.top && t.top.kind === "biche" ? `接触圣鹿 (免费)`
           : `探索此地 (免费)`;
@@ -1157,7 +1206,7 @@ function renderActions() {
       const mate = G.players.find(q => q !== p && q.down && q.x === p.x && q.y === p.y);
       if (mate) btns.push(`<button class="primary" onclick="reviveAction()" ${G.ap <= 0 || p.or < 2 ? "disabled" : ""}>复活 ${mate.name} (1AP + 2黄金)</button>`);
       if (G.ap === 0 && p.es >= 2) btns.push(`<button class="primary" onclick="esToAp()">精魄换行动 (2精魄→1AP)</button>`);
-      btns.push(`<button onclick="restAction()" ${G.ap <= 0 ? "disabled" : ""}>休息 (+${p.hero === "heros2" ? 3 : 2}生命, 结束回合)</button>`);
+      btns.push(`<button onclick="restAction()" ${G.ap <= 0 ? "disabled" : ""}>休息 (1AP, +${p.hero === "heros2" ? 3 : 2}生命, 结束回合)</button>`);
       btns.push(`<button class="primary" onclick="endTurn()">结束回合</button>`);
     }
   }
@@ -1211,48 +1260,88 @@ function animateDice(final) {
 
 /* ---------------- 15. 规则文本 ---------------- */
 function rulesHTML() {
+  const all = Object.values(MON);
+  const t1 = all.filter(m => m.tier === 1).map(m => m.name).join("、");
+  const t2 = all.filter(m => m.tier === 2 && !m.sub).map(m => m.name).join("、");
+  const t3 = all.filter(m => m.tier === 3 && !m.boss).map(m => m.name).join("、");
+  const skills = all.map(m =>
+    `<li>${m.name} <span class="rk">(T${m.tier}${m.boss ? " · BOSS" : m.sub ? " · 副BOSS" : ""})</span>：<b>「${m.skill.name}」</b>${m.skill.desc}</li>`).join("");
   return `<div class="rules-box">
     <h2 style="text-align:center" class="gold">神话试炼 · 规则说明书</h2>
-    <h3>概要</h3>
-    1~2 人希腊神话桌游。英雄在 4×4 神话大地上移动探索, 遭遇并击败怪物、收集黄金/火焰精魄/雷电水晶,
-    在神庙购置神器, 最终挑战风暴巨人堤丰。
-    <h3>回合与行动</h3>
-    每回合 3 行动点(AP, 竞争模式首杀堤丰后 +1): 向相邻格移动 1AP; 饮用圣泉/复活队友 1AP; 休息 = 结束回合并回复生命。
-    <b>精魄换行动</b>: 行动点耗尽时, 可支付 2 火焰精魄换取 1 临时行动点(每回合不限次数, 仅在无行动点时出现该按钮)。
-    战斗中使用的精魄增幅(每颗 +2 伤害)在战斗结束时(无论击杀/撤退/倒地)统一消耗。
-    探索当前格(触发遭遇)与战斗不消耗 AP。进入未探索格会翻开遭遇: 怪物(立即战斗)、资源点(直接拾取)、或友善圣鹿(选择祝福)。
-    <h3>战斗</h3>
-    掷 1d6 + 攻击修正 + 神器加成 = 本次伤害; 攻击前可用火焰精魄增幅(每颗 +2, 至多 3 颗);
-    掷骰后可花 1 雷晶重掷。若怪物存活则反击。
-    撤退规则: 普通怪可随时撤退(怪物伤势保留); <b>副BOSS(刻耳柏洛斯/卡戎)需先发起一次攻击</b>才可撤退; <b>BOSS 堤丰战不可撤退</b>。
-    所有概率均为六分骰倍数(x/6)。每只怪物都有契合其神话背景的特色技能, 战斗面板中可见(并标注档位)。
-    免疫类能力(暗影神盔/风之环)对 BOSS 堤丰无效, 对副BOSS 只能抵消一半伤害(向下取整)。
-    <h3>弹窗</h3>
-    所有弹窗右上角都可「收起」, 便于查看底部地图与资源面板(收起时无法操作, 防误触), 点右下角「恢复弹窗」返回。
-    <h3>怪物技能一览</h3>
-    ${Object.values(MON).map(m => `${m.name}(T${m.tier}${m.boss ? "/BOSS" : m.sub ? "/副BOSS" : ""}): 「${m.skill.name}」${m.skill.desc}`).join(" · ")}
-    <h3>单人挑战 / 双人合作 (剧情生存)</h3>
-    按章节推进: 击败 2 怪 → 购置 1 件神器 → 讨伐冥界守卫(三头地狱犬·刻耳柏洛斯 / 冥河船夫·卡戎)解锁冥界之门 → 击败堤丰获胜。
-    第 6 轮起堤丰的怒火每轮侵蚀全员且逐渐加剧 (第6-7轮-1, 第8-9轮-2, 第10轮起-3)。
-    合作模式怪物 +2 HP(堤丰 +4), 队友倒地可用 1AP+2黄金复活, 全员倒下即败。
-    结算: 奖杯分 + 章节分 + 剩余生命 + 黄金÷3 + 速度奖励。
-    <h3>怪物分档 (T1/T2/T3)</h3>
-    怪物按强度分三档, 档位决定击杀分数与里程碑资格 (与战斗面板显示一致):
-    <b>T1 (1分)</b>: ${Object.values(MON).filter(m => m.tier === 1).map(m => m.name).join("、")};
-    <b>T2 (2分)</b>: ${Object.values(MON).filter(m => m.tier === 2 && !m.sub).map(m => m.name).join("、")};
-    <b>T3 (3分)</b>: ${Object.values(MON).filter(m => m.tier === 3 && !m.boss).map(m => m.name).join("、")},
-    其中<b>刻耳柏洛斯、卡戎</b>为副BOSS (第三章讨伐对象); <b>BOSS (5分起)</b>: 堤丰。
-    <h3>双人竞争 (德式计分)</h3>
-    共 8 轮, 双方轮流行动, 不会死亡(生命归零回营地并 -2 分)。
-    前三个里程碑(首杀 T2 +1 / 首件神器 +1 / 首杀 T3 +2)先抢先得;
-    若后手在<b>同一轮内</b>也完成同一里程碑, 可追平得分 (每人各限一次, 过轮作废)。
-    击杀堤丰首次 +5 分, 此后每次击杀分数 +2; <b>堤丰会被击败后复活并强化</b>:
-    HP +3 / 攻击 +1 / 雷霆概率 +1/6 (至多 5/6), 击杀者被掀回进入 Boss 格前的格子并强制结束回合。
-    终局总分 = 奖杯分 + 神器×2 + 里程碑 + 黄金÷3 + (精魄+雷晶)÷2, 高者胜。
-    <h3>神器一览</h3>
-    锻造神锤(5金): 攻击+1 · 神盾埃癸斯(5金): 受伤-1 · 暗影神盔(4金): 每场战斗免疫首次反击(对BOSS无效, 副BOSS减半) ·
-    海洋之镜(4金): 回合开始+1生命 · 阿尔戈号(6金): 每回合首次移动免费 ·
-    潘多拉魔盒(3金): 一次性赌注——掷骰 1 受3伤害 / 2-3 空盒 / 4-5 +5黄金 / 6 「希望」(+6黄金+2精魄+2生命)。
+
+    <h3>🎯 概要</h3>
+    <ul>
+      <li>1~2 人希腊神话桌游：在 4×4 大地上探索、打怪、收集资源、购置神器，最终讨伐堤丰</li>
+      <li>三种模式——<b>单人挑战</b> / <b>双人合作</b>（剧情生存）· <b>双人竞争</b>（德式计分）</li>
+    </ul>
+
+    <h3>🎲 回合与行动（每回合 3 AP；竞争模式首杀堤丰后 +1）</h3>
+    <ul>
+      <li>移动到相邻格：<b>1 AP</b>（阿尔戈号：每回合首次移动免费）</li>
+      <li>探索此地 / 战斗 / 购物 / 拾取：<b>免费</b></li>
+      <li>饮用圣泉（+3 生命）、复活队友：<b>1 AP</b></li>
+      <li>休息：消耗 <b>1 AP</b>，回复 2 生命（女武神 +3），并结束回合</li>
+      <li><b>精魄换行动</b>：无行动点时，支付 2 精魄 → 1 临时 AP（每回合不限次数，按钮仅此时出现）</li>
+      <li>进入未探索格翻开遭遇：怪物（立即战斗）/ 资源点（直接拾取）/ 友善圣鹿（二选一祝福）</li>
+    </ul>
+
+    <h3>⚔️ 战斗</h3>
+    <ul>
+      <li>掷 1d6 + 攻击修正 + 神器加成 = 伤害；掷骰前可用精魄增幅（每颗 +2，至多 3 颗）</li>
+      <li>精魄增幅持续整场战斗，<b>战斗结束时（击杀 / 撤退 / 倒地）统一扣除</b></li>
+      <li>掷骰后可花 1 雷晶重掷（少年剑士每场免费一次）</li>
+      <li>怪物存活则反击；怪物伤势保留，撤退后再来可继续打</li>
+      <li><b>撤退规则</b>：普通怪随时可退（1AP）；副BOSS 需先攻击一次（1AP）；<b>BOSS 不可撤退</b></li>
+      <li>无 AP 撤退可改付 2 精魄；原地探索的战斗撤退免费，但本回合移动前不能原地再战</li>
+      <li>免疫类能力（神盔 / 风之环）：对 BOSS 无效，对副BOSS 减半；有神盔时首轮禁用风之环（防重叠）</li>
+      <li>所有概率均为六分骰倍数（x/6），技能详见下方一览</li>
+    </ul>
+
+    <h3>📖 章节（单人 / 合作）</h3>
+    <ol>
+      <li>诸神的召唤：击败 2 只怪物（+2 分）</li>
+      <li>神器试炼：队伍拥有 1 件神器（+2 分）</li>
+      <li>冥界守卫：击败 刻耳柏洛斯 或 卡戎（+2 分，解锁冥界之门）</li>
+      <li>泰坦之怒：击败堤丰 → 胜利</li>
+    </ol>
+    <ul>
+      <li>第 6 轮起怒火侵蚀全员，<b>每 2 轮 +1 且无上限</b>——拖延必亡</li>
+      <li>合作：怪物 +2 HP（堤丰 +4）；队友倒地可复活（1AP+2金），全员倒下即败</li>
+      <li>结算：奖杯 + 章节 + 剩余生命 + 黄金÷3 + 速度奖励（仅胜利，最低 0）</li>
+    </ul>
+
+    <h3>🏆 双人竞争（德式计分）</h3>
+    <ul>
+      <li>共 8 轮；生命归零回营地（-2 分）并强制结束回合，不会淘汰</li>
+      <li>里程碑先抢先得，<b>同轮可追平</b>：首杀 T2 +1 / 首件神器 +1 / 首杀 T3 +2（魔盒不算神器）</li>
+      <li>堤丰：首杀 +5 分；此后每次复活强化（HP+3 / 攻+1 / 雷霆+1/6）且讨伐分 +2</li>
+      <li>首次击杀堤丰后，下一轮起双方 AP 3 → 4</li>
+      <li>终局：奖杯 + 神器×2 + 里程碑 + 黄金÷3 + 资源÷2，高者胜</li>
+    </ul>
+
+    <h3>🗿 怪物分档与技能</h3>
+    <ul>
+      <li><b>T1（1 分）</b>：${t1}</li>
+      <li><b>T2（2 分）</b>：${t2}</li>
+      <li><b>T3（3 分）</b>：${t3}——其中刻耳柏洛斯、卡戎为<b>副BOSS</b>（先攻击一次才能撤退）</li>
+      <li><b>BOSS（5 分起）</b>：堤丰（不可撤退）</li>
+    </ul>
+    <ul class="skill-list">${skills}</ul>
+
+    <h3>🏺 神器一览</h3>
+    <ul>
+      <li>锻造神锤 5金：攻击 +1</li>
+      <li>神盾埃癸斯 5金：受到伤害 -1</li>
+      <li>暗影神盔 4金：免疫每场战斗首次反击（对BOSS无效 / 副BOSS减半）</li>
+      <li>海洋之镜 4金：每回合开始 +1 生命</li>
+      <li>阿尔戈号 6金：每回合首次移动免费</li>
+      <li>潘多拉魔盒 3金：掷 1 受3伤 / 2-3 空盒 / 4-5 +5金 / 6 「希望」（+6金+2精魄+2生命）</li>
+    </ul>
+
+    <h3>📜 弹窗操作</h3>
+    <ul>
+      <li>所有弹窗右上角「收起」可查看地图与面板（收起时锁定操作），右下角「恢复弹窗」返回</li>
+    </ul>
     <div class="cbt-btns"><button class="primary" onclick="closeModal()">明白了</button></div>
   </div>`;
 }
